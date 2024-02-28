@@ -91,3 +91,16 @@ exports.getMonthStartValue = (req, res) => {
     .then((data) => res.status(200).json({ data }))
     .catch((error) => res.status(400).json({ error }));
 };
+
+exports.getMonthlyReport = (req, res) => {
+  if (req.method !== 'GET') return res.status(401).json({ message: 'Invalid method' });
+
+  Report.find({
+    date: {
+      $gte: moment.tz(req.query.date, 'Asia/Manila').startOf('month'),
+      $lt: moment.tz(req.query.date, 'Asia/Manila').endOf('month'),
+    },
+  })
+    .then((data) => res.status(200).json({ data }))
+    .catch((error) => res.status(400).json({ error }));
+};

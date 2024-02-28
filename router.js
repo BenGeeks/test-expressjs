@@ -6,5 +6,6 @@ const reportController = require('./controllers/reports');
 router.get('/reports/dashboard', userController.authenticateUser, reportController.getDashboardData);
 router.get('/reports/daily', userController.authenticateUser, reportController.getDailyReportData);
 router.get('/reports/start', userController.authenticateUser, reportController.getMonthStartValue);
+router.get('/reports/month', userController.authenticateUser, reportController.getMonthlyReport);
 
 module.exports = router;
