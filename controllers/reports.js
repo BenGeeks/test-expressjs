@@ -1,6 +1,7 @@
 const Report = require('../models/report');
 const Orders = require('../models/order');
 const Expenses = require('../models/expenses');
+const Start = require('../models/start');
 const moment = require('moment-timezone');
 
 exports.getDashboardData = (req, res) => {
@@ -81,4 +82,12 @@ exports.getDailyReportData = (req, res) => {
     .catch((error) => {
       return res.status(500).json({ success: false, error });
     });
+};
+
+exports.getMonthStartValue = (req, res) => {
+  if (req.method !== 'GET') return res.status(401).json({ message: 'Invalid method' });
+
+  Start.find({ date: req.query.date })
+    .then((data) => res.status(200).json({ data }))
+    .catch((error) => res.status(400).json({ error }));
 };
